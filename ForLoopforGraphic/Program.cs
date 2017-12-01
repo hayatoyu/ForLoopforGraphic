@@ -12,13 +12,13 @@ namespace ForLoopforGraphic
         {
             int type = 0, level = 0;
             string s_type,s_level;
-            while (type <= 0 || type > 3)
+            while (type <= 0 || type > 4)
             {
                 Console.WriteLine("請選擇要印出之圖形：\n");
-                Console.WriteLine("\t1.菱形\n\t2.等腰直角三角形(直角在右)\n\t3.聖誕樹\n ");
+                Console.WriteLine("\t1.菱形\n\t2.等腰直角三角形(直角在右)\n\t3.聖誕樹\n\t4. 巴斯卡三角形\n ");
                 s_type = Console.ReadLine();
                 int.TryParse(s_type, out type);
-                if (type <= 0 || type > 3)
+                if (type <= 0 || type > 4)
                     Console.WriteLine("請依照說明輸入代碼\n\n");
             }
             while(level <= 0)
@@ -109,6 +109,44 @@ namespace ForLoopforGraphic
                         Console.WriteLine();
                     }
                 }
+            }
+
+            // 巴斯卡三角形
+            else if (type == 4)
+            {
+                Console.WriteLine("您將印出層數為 {0} 的巴斯卡三角形\n", level);
+                long[,] pascal = new long[level,level];
+                for(int i = 0;i < level;i++)
+                {
+                    for(int j = 0;j < level;j++)
+                    {
+                        if (j > i)
+                            break;
+                        if (i < 2)
+                            pascal[i, j] = 1;
+                        else
+                        {
+                            if (j == 0 || j == i)
+                                pascal[i, j] = 1;
+                            else
+                                pascal[i, j] = pascal[i - 1, j - 1] + pascal[i - 1, j];
+                        }
+                    }
+                }
+                for(int i = 0;i < level;i++)
+                {
+                    for(int j = 0;j < level;j++)
+                    {
+                        if (pascal[i, j] == 0)
+                            break;
+                        else
+                        {
+                            Console.Write(pascal[i, j] + "\t");
+                        }
+                    }
+                    Console.WriteLine();
+                }
+                
             }
         }
 
